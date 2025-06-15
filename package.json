@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:step1": "vite --open /step1.html",
     "tsc": "tsc --noEmit",
     "lint": "eslint ./src --fix",
     "prettier": "prettier ./src --write",
