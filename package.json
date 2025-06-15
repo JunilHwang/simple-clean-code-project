@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "test": "vitest",
-    "test:coverage": "vitest --run --coverage --coverage.include=src/step2",
+    "test:coverage": "vitest --run --coverage --coverage.include=src/step3",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:codegen": "playwright codegen localhost:5173"

@@ -1,7 +1,7 @@
-export function addEvent(
-  eventType: string,
+export function addEvent<K extends keyof HTMLElementEventMap>(
+  eventType: K,
   selector: string,
-  callback: (event: Event) => void,
+  callback: (event: HTMLElementEventMap[K]) => void,
   parent: HTMLElement = document.body
 ) {
   parent.addEventListener(eventType, (event) => {

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('쇼핑몰 장바구니 테스트', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
+  await page.goto('http://localhost:5173/step1.html');
   await expect(page.locator('body')).toMatchAriaSnapshot(`
     - img /맥북 프로 \\d+인치/
     - heading /맥북 프로 \\d+인치/ [level=3]
