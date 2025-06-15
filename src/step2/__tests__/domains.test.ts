@@ -108,4 +108,10 @@ describe('Domains > ', () => {
 
     expect(store.totalCartPrice).toBe(50000); // 30000 + 20000
   });
+
+  test('실제로 없는 제품을 장바구니에 추가할 경우, totalCartPrice는 0이 된다.', () => {
+    store.carts.add('3');
+
+    expect(store.totalCartPrice).toBe(0); // 30000 + 20000
+  });
 });
