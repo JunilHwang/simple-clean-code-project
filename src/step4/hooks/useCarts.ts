@@ -13,8 +13,10 @@ export const useCarts = (products: Products) => {
   const selectedItems = Object.values(itemsWithProduct).filter(
     (v) => v.selected
   );
+  const selectedSize = selectedItems.length;
 
-  const allSelected = selectedItems.length === itemsWithProduct.length;
+  const allSelected =
+    selectedSize > 0 && selectedSize === itemsWithProduct.length;
 
   const add = (id: ProductId) =>
     setCarts((value) => cartService.addToCart(value, products, id));

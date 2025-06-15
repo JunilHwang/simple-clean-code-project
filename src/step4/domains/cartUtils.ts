@@ -7,9 +7,11 @@ export const cartUtils = {
       quantity: 0,
       selected: false,
     };
-    newCart.quantity += 1;
 
-    return { ...carts, [newCart.productId]: newCart };
+    return {
+      ...carts,
+      [newCart.productId]: { ...newCart, quantity: newCart.quantity + 1 },
+    };
   },
   updateQuantity: (carts: Carts, productId: string, quantity: number) => ({
     ...carts,
