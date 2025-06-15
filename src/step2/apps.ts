@@ -2,7 +2,7 @@ export function addEvent(
   eventType: string,
   selector: string,
   callback: (event: Event) => void,
-  parent = document
+  parent: HTMLElement = document.body
 ) {
   parent.addEventListener(eventType, (event) => {
     const target = event.target as HTMLElement;

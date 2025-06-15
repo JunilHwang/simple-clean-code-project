@@ -94,9 +94,6 @@ const createCarts = (initValue: Record<Product['id'], Cart> = {}) => {
       value[productId].quantity += 1;
     },
     update(productId: string, quantity: number) {
-      if (!value[productId]) {
-        value[productId] = { productId, quantity: 1 };
-      }
       value[productId].quantity = Math.max(quantity, 1);
     },
     remove(productId: string) {
