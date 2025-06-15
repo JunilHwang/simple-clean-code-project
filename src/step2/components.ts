@@ -19,6 +19,7 @@ export function CartItem({
   image,
   name,
   price,
+  subtotal,
 }: CartWithProduct) {
   return `
     <div class="cart-item flex items-center gap-3 p-3 border-t" data-product-id="${id}">
@@ -34,7 +35,7 @@ export function CartItem({
         </div>
       </div>
       <div class="text-right">
-        <span class="subtotal font-bold">${price.toLocaleString()}원</span>
+        <span class="subtotal font-bold">${subtotal.toLocaleString()}원</span>
       </div>
     </div>
   `;
