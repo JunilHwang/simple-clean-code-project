@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { describe } from 'vitest';
 
 async function testFirstAssignmentAtPage(page: Page, path: string) {
   await page.goto(`http://localhost:5173/${path}.html`);
@@ -139,116 +140,125 @@ test.describe('첫 번째 요구사항에 대한 테스트 > ', () => {
   });
 })
 
-test('두 번째 요구사항에 대한 테스트 > ', async ({ page }) => {
-  await page.goto(`http://localhost:5173/step3.html`);
+test.describe('두 번째 요구사항에 대한 테스트 > ', () => {
+  const testSecondAssignmentAtPage = async (page: Page, path: string) => {
+    await page.goto(`http://localhost:5173/${path}.html`);
 
-  // 기본 화면 요소 확인
-  await expect(page.locator('h1')).toHaveText('쇼핑몰');
-  await expect(page.locator('h2')).toHaveText('장바구니');
+    // 기본 화면 요소 확인
+    await expect(page.locator('h1')).toHaveText('쇼핑몰');
+    await expect(page.locator('h2')).toHaveText('장바구니');
 
-  // 상품 컨트롤 요소 확인
-  await expect(page.locator('#search-input')).toBeVisible();
-  await expect(page.locator('#sort-select')).toBeVisible();
-  await expect(page.locator('#order-select')).toBeVisible();
+    // 상품 컨트롤 요소 확인
+    await expect(page.locator('#search-input')).toBeVisible();
+    await expect(page.locator('#sort-select')).toBeVisible();
+    await expect(page.locator('#order-select')).toBeVisible();
 
-  // 초기 상태에서 총 합계가 0원인지 확인
-  await expect(page.locator('#total-price')).toHaveText('0원');
+    // 초기 상태에서 총 합계가 0원인지 확인
+    await expect(page.locator('#total-price')).toHaveText('0원');
 
-  // 1. 상품 검색 기능 테스트
-  await page.fill('#search-input', '맥북');
-  await page.press('#search-input', 'Enter');
-  // 맥북 관련 상품만 보여야 함
-  await expect(page.locator('.product-item')).toHaveCount(2); // 맥북 프로, 맥북 에어
+    // 1. 상품 검색 기능 테스트
+    await page.fill('#search-input', '맥북');
+    await page.press('#search-input', 'Enter');
+    // 맥북 관련 상품만 보여야 함
+    await expect(page.locator('.product-item')).toHaveCount(2); // 맥북 프로, 맥북 에어
 
-  // 검색 초기화
-  await page.fill('#search-input', '');
-  await page.press('#search-input', 'Enter');
+    // 검색 초기화
+    await page.fill('#search-input', '');
+    await page.press('#search-input', 'Enter');
 
-  // 2. 상품 정렬 기능 테스트
-  await page.selectOption('#sort-select', 'price');
-  await page.selectOption('#order-select', 'asc');
-  // 가격 오름차순으로 정렬되는지 확인은 상품 순서로 판단
+    // 2. 상품 정렬 기능 테스트
+    await page.selectOption('#sort-select', 'price');
+    await page.selectOption('#order-select', 'asc');
+    // 가격 오름차순으로 정렬되는지 확인은 상품 순서로 판단
 
-  // 3. 장바구니에 상품 추가
-  await page.click('.product-item[data-product-id="1"] .add-to-cart-btn');
-  await page.click('.product-item[data-product-id="2"] .add-to-cart-btn');
-  await page.click('.product-item[data-product-id="4"] .add-to-cart-btn');
+    // 3. 장바구니에 상품 추가
+    await page.click('.product-item[data-product-id="1"] .add-to-cart-btn');
+    await page.click('.product-item[data-product-id="2"] .add-to-cart-btn');
+    await page.click('.product-item[data-product-id="4"] .add-to-cart-btn');
 
-  // 장바구니에 아이템이 추가되었는지 확인
-  await expect(page.locator('.cart-item')).toHaveCount(3);
-  await expect(page.locator('#select-all-cart')).toBeVisible(); // 전체 선택 체크박스가 나타남
+    // 장바구니에 아이템이 추가되었는지 확인
+    await expect(page.locator('.cart-item')).toHaveCount(3);
+    await expect(page.locator('#select-all-cart')).toBeVisible(); // 전체 선택 체크박스가 나타남
 
-  // 4. 장바구니 수량 변경 테스트
-  await page.click('.cart-item[data-product-id="1"] .increase-btn');
-  await page.click('.cart-item[data-product-id="1"] .increase-btn');
-  // 첫 번째 상품의 수량이 3이 되었는지 확인
-  await expect(page.locator('.cart-item[data-product-id="1"] .quantity')).toHaveText('3');
+    // 4. 장바구니 수량 변경 테스트
+    await page.click('.cart-item[data-product-id="1"] .increase-btn');
+    await page.click('.cart-item[data-product-id="1"] .increase-btn');
+    // 첫 번째 상품의 수량이 3이 되었는지 확인
+    await expect(page.locator('.cart-item[data-product-id="1"] .quantity')).toHaveText('3');
 
-  // 수량 감소 테스트
-  await page.click('.cart-item[data-product-id="1"] .decrease-btn');
-  await expect(page.locator('.cart-item[data-product-id="1"] .quantity')).toHaveText('2');
+    // 수량 감소 테스트
+    await page.click('.cart-item[data-product-id="1"] .decrease-btn');
+    await expect(page.locator('.cart-item[data-product-id="1"] .quantity')).toHaveText('2');
 
-  // 5. 장바구니 개별 선택 테스트
-  await page.check('.cart-item[data-product-id="1"] .cart-item-checkbox');
-  await page.check('.cart-item[data-product-id="2"] .cart-item-checkbox');
+    // 5. 장바구니 개별 선택 테스트
+    await page.check('.cart-item[data-product-id="1"] .cart-item-checkbox');
+    await page.check('.cart-item[data-product-id="2"] .cart-item-checkbox');
 
-  // 선택 삭제 버튼이 활성화되었는지 확인
-  await expect(page.locator('#remove-selected-cart')).not.toHaveAttribute('disabled');
+    // 선택 삭제 버튼이 활성화되었는지 확인
+    await expect(page.locator('#remove-selected-cart')).not.toHaveAttribute('disabled');
 
-  // 6. 전체 선택 기능 테스트
-  await page.click('#select-all-cart');
-  // 모든 아이템이 선택되었는지 확인
-  await expect(page.locator('.cart-item-checkbox:checked')).toHaveCount(3);
+    // 6. 전체 선택 기능 테스트
+    await page.click('#select-all-cart');
+    // 모든 아이템이 선택되었는지 확인
+    await expect(page.locator('.cart-item-checkbox:checked')).toHaveCount(3);
 
-  // 전체 선택 해제
-  await page.click('#select-all-cart');
-  await expect(page.locator('.cart-item-checkbox:checked')).toHaveCount(0);
+    // 전체 선택 해제
+    await page.click('#select-all-cart');
+    await expect(page.locator('.cart-item-checkbox:checked')).toHaveCount(0);
 
-  // 7. 선택한 아이템 삭제 테스트
-  await page.check('.cart-item[data-product-id="1"] .cart-item-checkbox');
-  await page.check('.cart-item[data-product-id="2"] .cart-item-checkbox');
-  await page.click('#remove-selected-cart');
+    // 7. 선택한 아이템 삭제 테스트
+    await page.check('.cart-item[data-product-id="1"] .cart-item-checkbox');
+    await page.check('.cart-item[data-product-id="2"] .cart-item-checkbox');
+    await page.click('#remove-selected-cart');
 
-  // 선택한 아이템들이 삭제되고 1개만 남았는지 확인
-  await expect(page.locator('.cart-item')).toHaveCount(1);
-  await expect(page.locator('.cart-item[data-product-id="4"]')).toBeVisible();
+    // 선택한 아이템들이 삭제되고 1개만 남았는지 확인
+    await expect(page.locator('.cart-item')).toHaveCount(1);
+    await expect(page.locator('.cart-item[data-product-id="4"]')).toBeVisible();
 
-  // 8. 개별 상품 삭제 테스트
-  await page.click('.cart-item[data-product-id="4"] .remove-btn');
-  await expect(page.locator('.cart-item')).toHaveCount(0);
-  await expect(page.locator('#total-price')).toHaveText('0원');
+    // 8. 개별 상품 삭제 테스트
+    await page.click('.cart-item[data-product-id="4"] .remove-btn');
+    await expect(page.locator('.cart-item')).toHaveCount(0);
+    await expect(page.locator('#total-price')).toHaveText('0원');
 
-  // 9. 재고 관리 테스트 - 재고가 있는 상품에 최대 재고까지 추가
-  const productWithStock = page.locator('.product-item').first();
-  const stockText = await productWithStock.locator('p').last().textContent();
-  const stockMatch = stockText?.match(/재고: (\d+)개/);
-  const stockCount = stockMatch ? parseInt(stockMatch[1]) : 0;
+    // 9. 재고 관리 테스트 - 재고가 있는 상품에 최대 재고까지 추가
+    const productWithStock = page.locator('.product-item').first();
+    const stockText = await productWithStock.locator('p').last().textContent();
+    const stockMatch = stockText?.match(/재고: (\d+)개/);
+    const stockCount = stockMatch ? parseInt(stockMatch[1]) : 0;
 
-  if (stockCount > 0) {
-    // 첫 번째 상품을 장바구니에 추가
-    await productWithStock.locator('.add-to-cart-btn').click();
+    if (stockCount > 0) {
+      // 첫 번째 상품을 장바구니에 추가
+      await productWithStock.locator('.add-to-cart-btn').click();
 
-    // 재고만큼 수량 증가 시도
-    for (let i = 1; i < stockCount; i++) {
+      // 재고만큼 수량 증가 시도
+      for (let i = 1; i < stockCount; i++) {
+        await page.click('.cart-item .increase-btn');
+      }
+
+      // 재고 이상으로 추가 시도해도 재고 수량을 넘지 않는지 확인
       await page.click('.cart-item .increase-btn');
+      await page.click('.cart-item .increase-btn');
+      await expect(page.locator('.cart-item .quantity')).toHaveText(stockCount.toString());
     }
 
-    // 재고 이상으로 추가 시도해도 재고 수량을 넘지 않는지 확인
-    await page.click('.cart-item .increase-btn');
-    await page.click('.cart-item .increase-btn');
-    await expect(page.locator('.cart-item .quantity')).toHaveText(stockCount.toString());
+    // 10. 전체 비우기 테스트
+    await page.click('#clear-cart');
+    await expect(page.locator('.cart-item')).toHaveCount(0);
+    await expect(page.locator('#total-price')).toHaveText('0원');
+
+    // 품절 테스트 (재고가 0인 상품)
+    const soldOutProduct = page.locator('.product-item[data-product-id="3"]');
+
+    // 품절 상품의 버튼이 비활성화되어 있는지 확인
+    await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveAttribute('disabled');
+    await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveText('품절');
+    await expect(soldOutProduct.locator('img')).toHaveClass(/opacity-50/);
   }
 
-  // 10. 전체 비우기 테스트
-  await page.click('#clear-cart');
-  await expect(page.locator('.cart-item')).toHaveCount(0);
-  await expect(page.locator('#total-price')).toHaveText('0원');
-
-  // 품절 테스트 (재고가 0인 상품)
-  const soldOutProduct = page.locator('.product-item[data-product-id="3"]');
-
-  // 품절 상품의 버튼이 비활성화되어 있는지 확인
-  await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveAttribute('disabled');
-  await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveText('품절');
-  await expect(soldOutProduct.locator('img')).toHaveClass(/opacity-50/);
+  test('step3 > ', async ({ page }) => {
+    await testSecondAssignmentAtPage(page, 'step3');
+  })
+  test('step4 > ', async ({ page }) => {
+    await testSecondAssignmentAtPage(page, 'step4');
+  })
 });
