@@ -1,11 +1,17 @@
 import { addEvent, setupEvents } from './apps';
 import { App } from './components';
-import { store } from './domains';
+import { createStore } from './domains';
+
+const store = createStore({});
 
 function render() {
   const $root = document.getElementById('root');
   if ($root) {
-    $root.innerHTML = App();
+    $root.innerHTML = App({
+      products: store.products.items,
+      carts: store.cartsWithProduct,
+      totalCartPrice: store.totalCartPrice,
+    });
   }
 
   setupEvents(() => {

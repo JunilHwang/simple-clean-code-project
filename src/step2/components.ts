@@ -1,4 +1,4 @@
-import { type Product, store } from './domains';
+import { type CartWithProduct, type Product } from './domains';
 
 export function ProductItem({ image, name, price, id }: Product) {
   return `
@@ -19,7 +19,7 @@ export function CartItem({
   image,
   name,
   price,
-}: (typeof store.cartsWithProduct)[number]) {
+}: CartWithProduct) {
   return `
     <div class="cart-item flex items-center gap-3 p-3 border-t" data-product-id="${id}">
       <img src="${image}" alt="${name}" class="w-16 h-16 object-cover rounded">
@@ -54,7 +54,15 @@ export function CartSummary({ totalPrice }: { totalPrice: number }) {
   `;
 }
 
-export function App() {
+export function App({
+  products,
+  carts,
+  totalCartPrice,
+}: {
+  products: Product[];
+  carts: CartWithProduct[];
+  totalCartPrice: number;
+}) {
   return `
 	  <div class="container mx-auto py-20">
 		  <h1 class="text-3xl font-bold mb-8 text-center">쇼핑몰</h1>
@@ -62,7 +70,7 @@ export function App() {
 		  <div class="flex gap-8">
 		    <div class="flex-1">
 		      <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-		        ${store.products.items.map(ProductItem).join('')}
+		        ${products.map(ProductItem).join('')}
 		      </div>
 		    </div>
 		
@@ -70,9 +78,9 @@ export function App() {
 		    <div class="bg-white p-6 rounded-lg shadow w-[400px]">
 		      <h2 class="text-2xl fon t-bold mb-4">장바구니</h2>
 		      <div id="cart-items">
-		        ${store.cartsWithProduct.map(CartItem).join('')}
+		        ${carts.map(CartItem).join('')}
 		      </div>
-		      ${CartSummary({ totalPrice: store.totalCartPrice })}
+		      ${CartSummary({ totalPrice: totalCartPrice })}
 		    </div>
 		  </div>
 		</div>

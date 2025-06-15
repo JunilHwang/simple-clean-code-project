@@ -10,6 +10,9 @@ export interface Cart {
   quantity: number;
 }
 
+export type CartWithProduct = Product &
+  Pick<Cart, 'quantity'> & { subtotal: number };
+
 // 초기 상품 데이터
 const INITIAL_PRODUCTS: Product[] = [
   {
@@ -131,9 +134,15 @@ const createProducts = (initValue = INITIAL_PRODUCTS) => {
 };
 
 // 애플리케이션 상태
-export const store = {
-  products: createProducts(),
-  carts: createCarts(),
+export const createStore = ({
+  products = INITIAL_PRODUCTS,
+  carts = {},
+}: {
+  products?: Product[];
+  carts?: Record<Product['id'], Cart>;
+}) => ({
+  products: createProducts(products),
+  carts: createCarts(carts),
 
   get totalCartPrice() {
     return this.carts.items.reduce((total, item) => {
@@ -142,7 +151,7 @@ export const store = {
     }, 0);
   },
 
-  get cartsWithProduct() {
+  get cartsWithProduct(): CartWithProduct[] {
     return this.carts.items.map(({ productId, quantity }) => {
       const product = this.products.value[productId];
       return {
@@ -152,4 +161,4 @@ export const store = {
       };
     });
   },
-};
+});
