@@ -201,7 +201,7 @@ export function ProductControls({
           <select
             id="sort-select"
             className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={handleOrderChange}
+            onChange={handleSortChange}
           >
             <option value="default">기본순</option>
             <option value="name">이름순</option>
@@ -211,7 +211,7 @@ export function ProductControls({
           <select
             id="order-select"
             className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={handleSortChange}
+            onChange={handleOrderChange}
           >
             <option value="asc">오름차순</option>
             <option value="desc">내림차순</option>
