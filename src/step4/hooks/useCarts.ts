@@ -21,7 +21,7 @@ export const useCarts = (products: Products) => {
   const add = (id: ProductId) =>
     setCarts((value) => cartService.addToCart(value, products, id));
 
-  const updateQuantity = (id: ProductId, quantity: number) =>
+  const incrementQuantity = (id: ProductId, quantity: number) =>
     setCarts((value) =>
       cartService.incrementCartQuantity(value, products, id, quantity)
     );
@@ -47,7 +47,7 @@ export const useCarts = (products: Products) => {
     totalPrice,
     allSelected,
     add,
-    updateQuantity,
+    incrementQuantity,
     remove,
     removeSelected,
     toggleSelect,

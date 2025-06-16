@@ -58,8 +58,8 @@ export function App() {
               <CartItem
                 key={cartItem.id}
                 {...cartItem}
-                onIncrementClick={(id) => carts.updateQuantity(id, 1)}
-                onDecrementClick={(id) => carts.updateQuantity(id, -1)}
+                onIncrementClick={(id) => carts.incrementQuantity(id, 1)}
+                onDecrementClick={(id) => carts.incrementQuantity(id, -1)}
                 onRemoveClick={carts.remove}
                 onSelect={carts.toggleSelect}
               />

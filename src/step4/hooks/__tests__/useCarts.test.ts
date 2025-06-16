@@ -68,7 +68,7 @@ describe('useCarts > ', () => {
 
     act(() => {
       result.current.add('2');
-      result.current.updateQuantity('2', 2);
+      result.current.incrementQuantity('2', 2);
     });
 
     expect(result.current.items['2'].quantity).toBe(3);
