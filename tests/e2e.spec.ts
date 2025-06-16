@@ -1,5 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
-import { describe } from 'vitest';
+import { expect, type Page, test } from '@playwright/test';
 
 async function testFirstAssignmentAtPage(page: Page, path: string) {
   await page.goto(`http://localhost:5173/${path}.html`);
@@ -48,10 +47,26 @@ async function testFirstAssignmentAtPage(page: Page, path: string) {
     - text: "총 합계: 0원"
     - button "장바구니 비우기"
     `);
-  await page.locator('#product-list div').filter({ hasText: '맥북 프로 14인치 2,990,000원 장바구니 담기' }).getByRole('button').click();
-  await page.locator('#product-list div').filter({ hasText: '아이폰 15 Pro 1,550,000원 장바구니 담기' }).getByRole('button').click();
-  await page.locator('#product-list div').filter({ hasText: '갤럭시 S24 1,200,000원 장바구니 담기' }).getByRole('button').click();
-  await page.locator('#product-list div').filter({ hasText: '에어팟 프로 350,000원 장바구니 담기' }).getByRole('button').click();
+  await page
+    .locator('#product-list div')
+    .filter({ hasText: '맥북 프로 14인치 2,990,000원 장바구니 담기' })
+    .getByRole('button')
+    .click();
+  await page
+    .locator('#product-list div')
+    .filter({ hasText: '아이폰 15 Pro 1,550,000원 장바구니 담기' })
+    .getByRole('button')
+    .click();
+  await page
+    .locator('#product-list div')
+    .filter({ hasText: '갤럭시 S24 1,200,000원 장바구니 담기' })
+    .getByRole('button')
+    .click();
+  await page
+    .locator('#product-list div')
+    .filter({ hasText: '에어팟 프로 350,000원 장바구니 담기' })
+    .getByRole('button')
+    .click();
   await page.getByRole('button', { name: '+' }).first().click();
   await page.getByRole('button', { name: '+' }).nth(1).click();
   await page.getByRole('button', { name: '+' }).nth(1).click();
@@ -138,7 +153,7 @@ test.describe('첫 번째 요구사항에 대한 테스트 > ', () => {
   test('step2 > ', async ({ page }) => {
     await testFirstAssignmentAtPage(page, 'step2');
   });
-})
+});
 
 test.describe('두 번째 요구사항에 대한 테스트 > ', () => {
   const testSecondAssignmentAtPage = async (page: Page, path: string) => {
@@ -184,18 +199,24 @@ test.describe('두 번째 요구사항에 대한 테스트 > ', () => {
     await page.click('.cart-item[data-product-id="1"] .increase-btn');
     await page.click('.cart-item[data-product-id="1"] .increase-btn');
     // 첫 번째 상품의 수량이 3이 되었는지 확인
-    await expect(page.locator('.cart-item[data-product-id="1"] .quantity')).toHaveText('3');
+    await expect(
+      page.locator('.cart-item[data-product-id="1"] .quantity')
+    ).toHaveText('3');
 
     // 수량 감소 테스트
     await page.click('.cart-item[data-product-id="1"] .decrease-btn');
-    await expect(page.locator('.cart-item[data-product-id="1"] .quantity')).toHaveText('2');
+    await expect(
+      page.locator('.cart-item[data-product-id="1"] .quantity')
+    ).toHaveText('2');
 
     // 5. 장바구니 개별 선택 테스트
     await page.check('.cart-item[data-product-id="1"] .cart-item-checkbox');
     await page.check('.cart-item[data-product-id="2"] .cart-item-checkbox');
 
     // 선택 삭제 버튼이 활성화되었는지 확인
-    await expect(page.locator('#remove-selected-cart')).not.toHaveAttribute('disabled');
+    await expect(page.locator('#remove-selected-cart')).not.toHaveAttribute(
+      'disabled'
+    );
 
     // 6. 전체 선택 기능 테스트
     await page.click('#select-all-cart');
@@ -238,7 +259,9 @@ test.describe('두 번째 요구사항에 대한 테스트 > ', () => {
       // 재고 이상으로 추가 시도해도 재고 수량을 넘지 않는지 확인
       await page.click('.cart-item .increase-btn');
       await page.click('.cart-item .increase-btn');
-      await expect(page.locator('.cart-item .quantity')).toHaveText(stockCount.toString());
+      await expect(page.locator('.cart-item .quantity')).toHaveText(
+        stockCount.toString()
+      );
     }
 
     // 10. 전체 비우기 테스트
@@ -250,15 +273,17 @@ test.describe('두 번째 요구사항에 대한 테스트 > ', () => {
     const soldOutProduct = page.locator('.product-item[data-product-id="3"]');
 
     // 품절 상품의 버튼이 비활성화되어 있는지 확인
-    await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveAttribute('disabled');
+    await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveAttribute(
+      'disabled'
+    );
     await expect(soldOutProduct.locator('.add-to-cart-btn')).toHaveText('품절');
     await expect(soldOutProduct.locator('img')).toHaveClass(/opacity-50/);
-  }
+  };
 
   test('step3 > ', async ({ page }) => {
     await testSecondAssignmentAtPage(page, 'step3');
-  })
+  });
   test('step4 > ', async ({ page }) => {
     await testSecondAssignmentAtPage(page, 'step4');
-  })
+  });
 });
