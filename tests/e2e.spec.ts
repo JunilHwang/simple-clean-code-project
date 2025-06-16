@@ -286,4 +286,7 @@ test.describe('두 번째 요구사항에 대한 테스트 > ', () => {
   test('step4 > ', async ({ page }) => {
     await testSecondAssignmentAtPage(page, 'step4');
   });
+  test('step5 > ', async ({ page }) => {
+    await testSecondAssignmentAtPage(page, 'step5');
+  });
 });
