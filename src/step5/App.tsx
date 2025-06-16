@@ -3,7 +3,7 @@ import {
   CartSummary,
   ProductControls,
   ProductList,
-} from './components__v2.tsx';
+} from './components.tsx';
 
 export function App() {
   return (
