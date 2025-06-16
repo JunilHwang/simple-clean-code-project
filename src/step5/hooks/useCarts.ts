@@ -1,57 +1,23 @@
-import { useState } from 'react';
-import type { Carts, Product, Products } from '../domains/types.ts';
-import { cartUtils } from '../domains/cartUtils.ts';
-import { cartService } from '../domains/cartService.ts';
+import { useShallowStore as useStore } from './useStore.ts';
 
-type ProductId = Product['id'];
-
-export const useCarts = (products: Products) => {
-  const [carts, setCarts] = useState<Carts>({});
-
-  const totalPrice = cartService.getTotalCartPrice(carts, products);
-  const itemsWithProduct = cartService.getCartsWithProduct(carts, products);
-  const selectedItems = Object.values(itemsWithProduct).filter(
-    (v) => v.selected
-  );
-  const selectedSize = selectedItems.length;
-
-  const allSelected =
-    selectedSize > 0 && selectedSize === itemsWithProduct.length;
-
-  const add = (id: ProductId) =>
-    setCarts((value) => cartService.addToCart(value, products, id));
-
-  const incrementQuantity = (id: ProductId, quantity: number) =>
-    setCarts((value) =>
-      cartService.incrementCartQuantity(value, products, id, quantity)
-    );
-
-  const remove = (id: ProductId) =>
-    setCarts((value) => cartUtils.remove(value, id));
-
-  const removeSelected = () =>
-    setCarts((value) => cartUtils.removeSelected(value));
-
-  const toggleSelect = (id: ProductId) =>
-    setCarts((value) => cartUtils.toggleSelect(value, id));
-
-  const toggleAllSelected = () =>
-    setCarts((value) => cartUtils.updateAllSelected(value, !allSelected));
-
-  const clear = () => setCarts({});
-
-  return {
-    items: carts,
-    itemsWithProduct,
-    selectedItems,
-    totalPrice,
-    allSelected,
-    add,
-    incrementQuantity,
-    remove,
-    removeSelected,
-    toggleSelect,
-    toggleAllSelected,
-    clear,
-  };
-};
+export const useCartIds = () => useStore((state) => Object.keys(state.carts));
+export const useCartItemWithProduct = (id: string) =>
+  useStore((state) => state.getCartWithProduct(id));
+export const useCartSelection = () =>
+  useStore((state) => state.getSelectedCartItems().length > 0);
+export const useCartTotalPrice = () =>
+  useStore((state) => state.getCartTotalPrice());
+export const useCartAllSelected = () =>
+  useStore((state) => state.isAllCartsSelected());
+export const useAddToCart = () => useStore((state) => state.addToCart);
+export const useIncrementCartQuantity = () =>
+  useStore((state) => state.incrementCartQuantity);
+export const useRemoveFromCart = () =>
+  useStore((state) => state.removeFromCart);
+export const useRemoveSelectedCarts = () =>
+  useStore((state) => state.removeSelectedCarts);
+export const useToggleCartSelect = () =>
+  useStore((state) => state.toggleCartSelect);
+export const useToggleAllCartsSelected = () =>
+  useStore((state) => state.toggleAllCartsSelected);
+export const useClearCart = () => useStore((state) => state.clearCart);
