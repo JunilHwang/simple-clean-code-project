@@ -3,11 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>쇼핑몰</title>
+  <title>클린코드 학습 프로젝트</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-  <div id="root"></div>
-  <script type="module" src="/src/step4/main.tsx"></script>
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto py-20">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">
+        클린코드 학습 프로젝트
+      </h1>
+      <p class="text-lg text-gray-600 text-center mb-12 leading-relaxed">
+        요구사항 변화를 통해 클린코드의 중요성을 학습하는 쇼핑몰 프로젝트입니다.<br>
+        각 단계별로 코드가 어떻게 발전해 나가는지 확인해보세요.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Step 1 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-bold mb-3 text-blue-600">Step 1</h2>
+          <h3 class="text-lg font-semibold mb-2">Vanilla JavaScript</h3>
+          <p class="text-gray-600 mb-4 text-sm">
+            초기 요구사항을 바닐라 JavaScript로 구현한 버전입니다.
+            명령형 프로그래밍 방식으로 작성되어 확장성에 한계가 있습니다.
+          </p>
+          <a href="./step1.html"
+             class="inline-block w-full text-center bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors">
+            데모 보기
+          </a>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-bold mb-3 text-green-600">Step 2</h2>
+          <h3 class="text-lg font-semibold mb-2">관심사 분리</h3>
+          <p class="text-gray-600 mb-4 text-sm">
+            도메인 로직, 컴포넌트, 앱 로직을 분리하여 유지보수성을 개선했습니다.
+            MVC 패턴을 적용한 선언형 구조로 변경되었습니다.
+          </p>
+          <a href="./step2.html"
+             class="inline-block w-full text-center bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-colors">
+            데모 보기
+          </a>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-bold mb-3 text-purple-600">Step 3</h2>
+          <h3 class="text-lg font-semibold mb-2">기능 확장</h3>
+          <p class="text-gray-600 mb-4 text-sm">
+            검색, 정렬, 재고 관리, 다중 선택 기능을 추가했습니다.
+            관심사 분리 덕분에 쉽게 기능을 확장할 수 있었습니다.
+          </p>
+          <a href="./step3.html"
+             class="inline-block w-full text-center bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition-colors">
+            데모 보기
+          </a>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-bold mb-3 text-orange-600">Step 4</h2>
+          <h3 class="text-lg font-semibold mb-2">React 전환</h3>
+          <p class="text-gray-600 mb-4 text-sm">
+            기존 도메인 로직을 재사용하여 React로 전환했습니다.
+            좋은 설계의 장점을 확인할 수 있는 단계입니다.
+          </p>
+          <a href="./step4.html"
+             class="inline-block w-full text-center bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+            데모 보기
+          </a>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-bold mb-3 text-red-600">Step 5</h2>
+          <h3 class="text-lg font-semibold mb-2">상태관리 최적화</h3>
+          <p class="text-gray-600 mb-4 text-sm">
+            Zustand를 도입하여 성능을 최적화하고 관심사를 더욱 명확히 분리했습니다.
+            선택적 구독을 통한 효율적인 리렌더링을 구현했습니다.
+          </p>
+          <a href="./step5.html"
+             class="inline-block w-full text-center bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors">
+            데모 보기
+          </a>
+        </div>
+
+        <!-- GitHub 링크 -->
+        <div class="bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <h2 class="text-xl font-bold mb-3 text-white">GitHub</h2>
+          <h3 class="text-lg font-semibold mb-2 text-gray-300">소스 코드</h3>
+          <p class="text-gray-400 mb-4 text-sm">
+            전체 소스 코드와 상세한 설명을 GitHub에서 확인할 수 있습니다.
+            각 단계별 커밋 히스토리도 함께 제공됩니다.
+          </p>
+          <a href="https://github.com/junilhwang/simple-clean-code-project"
+             target="_blank"
+             class="inline-block w-full text-center bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+            GitHub 보기
+          </a>
+        </div>
+      </div>
+
+      <!-- 학습 포인트 -->
+      <div class="mt-16 bg-white rounded-lg shadow-md p-8">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">학습 포인트</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-blue-600">📐 관심사 분리</h3>
+            <p class="text-gray-600 text-sm">
+              도메인 로직, UI, 이벤트 처리를 분리하여 각각의 책임을 명확히 하고
+              유지보수성을 향상시키는 방법을 학습합니다.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-green-600">🔄 명령형 vs 선언형</h3>
+            <p class="text-gray-600 text-sm">
+              "어떻게"에서 "무엇을"로 사고방식을 전환하여
+              더 이해하기 쉽고 예측 가능한 코드를 작성하는 방법을 학습합니다.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-purple-600">🧪 테스트 가능한 구조</h3>
+            <p class="text-gray-600 text-sm">
+              순수 함수와 의존성 주입을 통해 테스트하기 쉬운
+              코드 구조를 만드는 방법을 학습합니다.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-orange-600">⚡ 성능 최적화</h3>
+            <p class="text-gray-600 text-sm">
+              상태관리 라이브러리를 활용한 선택적 구독과
+              불필요한 리렌더링을 방지하는 방법을 학습합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
